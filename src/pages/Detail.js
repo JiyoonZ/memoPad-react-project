@@ -1,6 +1,7 @@
 import Container from "../components/Container";
 import Button from "../components/Button";
 import styled from "styled-components";
+import Modal from "../components/Modal";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
@@ -8,14 +9,24 @@ import {
   faBookmark,
   faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
+import {useState} from "react";
 // regural/light 골라서 Import 해주기
+
 function Detail() {
   const navigate = useNavigate();
+  const [modal, setModal] = useState(false);
   function goBackHandler() {
     navigate("/");
   }
+  function openModal() {
+    setModal(true);
+  }
+  function closeModal() {
+    setModal((prev) => !prev);
+  }
   return (
     <div>
+      {modal && <Modal modalSet={modal} closeModal={closeModal} />}
       <Container>
         <Flexbox>
           <Button onClick={goBackHandler} btnColor="back">
@@ -23,7 +34,7 @@ function Detail() {
             &nbsp;뒤로가기
           </Button>
           <FontAwesomeIcon icon={faBookmark} className="bookMark" />
-          <SettingBtn>
+          <SettingBtn onClick={openModal}>
             <FontAwesomeIcon icon={faEllipsis} />
           </SettingBtn>
         </Flexbox>
