@@ -9,14 +9,19 @@ import {
   faBookmark,
   faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
+import {faBookmark as regularBookmark} from "@fortawesome/free-regular-svg-icons";
 import {useState} from "react";
 // regural/light 골라서 Import 해주기
 
 function Detail() {
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
+  const [bookMark, setBookMark] = useState(false);
   function goBackHandler() {
     navigate("/");
+  }
+  function bookMarkClickHandler() {
+    setBookMark((prev) => !prev);
   }
   function openModal() {
     setModal(true);
@@ -33,7 +38,13 @@ function Detail() {
             <FontAwesomeIcon icon={faArrowLeftLong} />
             &nbsp;뒤로가기
           </Button>
-          <FontAwesomeIcon icon={faBookmark} className="bookMark" />
+          <BookMarkBtn onClick={bookMarkClickHandler}>
+            {bookMark ? (
+              <FontAwesomeIcon icon={faBookmark} className="mark" />
+            ) : (
+              <FontAwesomeIcon icon={regularBookmark} />
+            )}
+          </BookMarkBtn>
           <SettingBtn onClick={openModal}>
             <FontAwesomeIcon icon={faEllipsis} />
           </SettingBtn>
@@ -49,6 +60,23 @@ function Detail() {
     </div>
   );
 }
+const BookMarkBtn = styled.div`
+  cursor: pointer;
+  color: white;
+  stroke: darkgray;
+  stroke-width: 20;
+  font-size: 26px;
+  margin-left: 150px;
+  .mark {
+    color: #edf25c;
+    stroke: white;
+    stroke-width: 40;
+  }
+  -webkit-filter: drop-shadow(
+    5px 5px 2px ${({theme}) => theme.colors.shadowGray}
+  );
+  filter: drop-shadow(5px 5px 2px ${({theme}) => theme.colors.shadowGray});
+`;
 const MemoContainer = styled.div`
   margin: 0 5px;
   height: 80%;
@@ -84,16 +112,4 @@ const Flexbox = styled.div`
   ${({theme}) => theme.layout.flexbox};
   height: 40px;
   font-size: 22px;
-  color: #edf25c;
-  .bookMark {
-    cursor: pointer;
-    font-size: 26px;
-    margin-left: 150px;
-    stroke: #fff;
-    stroke-width: 20;
-    -webkit-filter: drop-shadow(
-      5px 5px 2px ${({theme}) => theme.colors.shadowGray}
-    );
-    filter: drop-shadow(5px 5px 2px ${({theme}) => theme.colors.shadowGray});
-  }
 `;
