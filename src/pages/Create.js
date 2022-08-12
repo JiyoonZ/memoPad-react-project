@@ -1,6 +1,8 @@
 import Container from "../components/Container";
 import Button from "../components/Button";
 import styled from "styled-components";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowLeftLong} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
 
 function Create() {
@@ -12,8 +14,9 @@ function Create() {
     <div>
       <Container>
         <Flexbox>
-          <Button btnColor="darkGray" onClick={goBackHandler}>
-            뒤로가기
+          <Button btnColor="back" onClick={goBackHandler}>
+            <FontAwesomeIcon icon={faArrowLeftLong} />
+            &nbsp; 뒤로가기
           </Button>
           <Button btnColor="blue">저장하기</Button>
         </Flexbox>

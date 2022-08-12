@@ -1,10 +1,14 @@
 import styled from "styled-components";
+
 const Button = styled.button`
   height: 2rem;
-  width: 70px;
   border: none;
   border-radius: 12px;
   font-weight: 600;
+  width: ${({btnColor}) => {
+    if (btnColor === "back") return "90px";
+    else return "70px";
+  }};
   color: ${({btnColor, theme}) => {
     if (btnColor === "red") return theme.colors.red;
     else if (btnColor === "blue") return theme.colors.blue;
