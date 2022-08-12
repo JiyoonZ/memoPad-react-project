@@ -23,7 +23,7 @@ function Modal({modalSet, closeModal}) {
     }
   };
   return (
-    <ModalConatiner>
+    <ModalLayer>
       <CloseBtn>
         <FontAwesomeIcon icon={faXmark} />
       </CloseBtn>
@@ -49,13 +49,13 @@ function Modal({modalSet, closeModal}) {
           </ButtonBox>
         </FlexBox>
       </ModalBox>
-    </ModalConatiner>
+    </ModalLayer>
   );
 }
 const CloseBtn = styled.div`
-  position: absolute;
-  top: 33%;
-  right: 30%;
+  /* position: fixed;
+  top: 290px;
+  right: 300px; */
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -98,14 +98,14 @@ const ModalBox = styled.div`
   box-shadow: 0.1rem 0.1rem 1.5rem ${({theme}) => theme.colors.darkGray};
   border-radius: 13px;
   color: black;
+  margin-top: 20px;
 `;
-const ModalConatiner = styled.div`
+const ModalLayer = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
-  display: flex;
+  ${({theme}) => theme.layout.flexCenterColumn}
   justify-content: center;
-  align-items: center;
   background: rgba(0, 0, 0, 0.5);
   z-index: 999;
 `;
