@@ -56,6 +56,7 @@ const MemoContainer = styled.div`
   box-sizing: border-box;
 `;
 const SettingBtn = styled.div`
+  cursor: pointer;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -85,6 +86,7 @@ const Flexbox = styled.div`
   font-size: 22px;
   color: #edf25c;
   .bookMark {
+    cursor: pointer;
     font-size: 26px;
     margin-left: 150px;
     stroke: #fff;
