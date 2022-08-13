@@ -50,7 +50,7 @@ function Update() {
               &nbsp; 뒤로가기
             </Button>
             <Button type="submit" btnColor="blue">
-              저장하기
+              수정하기
             </Button>
           </Flexbox>
 
