@@ -61,6 +61,7 @@ function Detail() {
           <Title>{data.title}</Title>
           <Content>{data.content}</Content>
         </MemoContainer>
+        <Date>{data.date}</Date>
       </Container>
     </div>
   );
@@ -101,6 +102,13 @@ const SettingBtn = styled.div`
   align-items: center;
   box-sizing: border-box;
   box-shadow: 0.3rem 0.3rem 0.6rem #c8d0f9, -0.2rem -0.2rem 0.5rem #ffffff;
+`;
+const Date = styled.div`
+  font-size: 14px;
+  text-align: end;
+  font-weight: 500;
+  color: gray;
+  text-decoration: underline;
 `;
 const Title = styled.div`
   font-size: 25px;

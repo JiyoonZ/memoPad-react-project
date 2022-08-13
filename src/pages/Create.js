@@ -9,7 +9,7 @@ import {useState} from "react";
 
 function Create() {
   const navigate = useNavigate();
-  const existedEntry = JSON.parse(localStorage.getItem("memoList"));
+  let existedEntry = JSON.parse(localStorage.getItem("memoList"));
   const [memoId, setMemoId] = useState(
     existedEntry ? existedEntry.length + 1 : 1
   );
@@ -25,16 +25,10 @@ function Create() {
       date: dayjs(new Date()).format("YYYY-MM-DD"),
     };
     if (existedEntry === null) {
-      const newEntry = [];
-      newEntry.push(memoEntry);
-      localStorage.setItem("memoList", JSON.stringify(newEntry));
-    } else {
-      existedEntry.push(memoEntry);
-      localStorage.setItem("memoList", JSON.stringify(existedEntry));
+      existedEntry = [];
     }
-    setMemoId((prev) => {
-      return prev + 1;
-    });
+    existedEntry.push(memoEntry);
+    localStorage.setItem("memoList", JSON.stringify(existedEntry));
     navigate("/");
   }
   return (
