@@ -3,12 +3,16 @@ import Button from "../components/Button";
 import Container from "../components/Container";
 import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 function Main() {
   const navigate = useNavigate();
-  const existData = JSON.parse(localStorage.getItem("memoList"));
-  const [datas, setData] = useState(existData ? existData : null);
-
+  const [datas, setData] = useState(null);
+  useEffect(() => {
+    const existData = JSON.parse(localStorage.getItem("memoList"));
+    if (existData) {
+      setData(existData);
+    }
+  }, []);
   function createHandler() {
     navigate("/create");
   }
@@ -34,7 +38,6 @@ function Main() {
             <MemoBox key={ele.id} data={ele} onClick={goDetailHandler} />
           ))
         )}
-        {/* {`${Boolean(!datas)} gkgkgk`} */}
       </FlexMemo>
     </Container>
   );
