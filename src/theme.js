@@ -18,8 +18,8 @@ const layout = {
   `,
   flexCenter: `
   display: flex;
-  justify-contents: center;
   align-items: center;
+  justify-content: center;
 `,
   flexCenterColumn: `
     display: flex;

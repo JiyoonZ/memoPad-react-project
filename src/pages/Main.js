@@ -38,10 +38,12 @@ function Main() {
   );
 }
 const EmptyMemo = styled.div`
-  ${({theme}) => theme.layout.flexCenter};
   font-size: 20px;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  height: 100%;
+  ${({theme}) => theme.layout.flexCenter};
 `;
 const FlexMemo = styled.div`
   height: 80%;
