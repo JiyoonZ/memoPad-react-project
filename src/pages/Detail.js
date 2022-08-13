@@ -39,7 +39,7 @@ function Detail() {
   }
   return (
     <div>
-      {modal && <Modal modalSet={modal} closeModal={closeModal} />}
+      {modal && <Modal modalSet={modal} closeModal={closeModal} data={data} />}
       <Container>
         <Flexbox>
           <Button onClick={goBackHandler} btnColor="back">

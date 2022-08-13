@@ -7,9 +7,11 @@ import {
   faTrashCan,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import {useNavigate} from "react-router-dom";
 
-function Modal({modalSet, closeModal}) {
+function Modal({modalSet, closeModal, data}) {
   const modalRef = useRef();
+  const navigate = useNavigate();
   useEffect(() => {
     document.addEventListener("click", clickModalOutside, true);
     return () => {
@@ -17,11 +19,14 @@ function Modal({modalSet, closeModal}) {
     };
   });
 
-  const clickModalOutside = (evt) => {
+  function clickModalOutside(evt) {
     if (modalSet && !modalRef.current.contains(evt.target)) {
       closeModal();
     }
-  };
+  }
+  function updateHandler() {
+    navigate(`/update/${data.id}`);
+  }
   return (
     <ModalLayer>
       <CloseBtn>
@@ -36,7 +41,7 @@ function Modal({modalSet, closeModal}) {
             </IconBox>
           </ButtonBox>
           <ButtonBox btnColor="blue">
-            <IconBox>
+            <IconBox onClick={updateHandler}>
               <FontAwesomeIcon icon={faPenToSquare} />
               <div className="iconName">수정하기</div>
             </IconBox>
