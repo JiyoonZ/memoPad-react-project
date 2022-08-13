@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 function MemoBox({data}) {
   const navigate = useNavigate();
   function goMemoHanlder() {
-    navigate("/detail");
+    navigate(`/detail/${data.id}`);
   }
   return (
     <BoxWrapper onClick={goMemoHanlder}>
@@ -13,21 +13,21 @@ function MemoBox({data}) {
   );
 }
 const BoxWrapper = styled.div`
-  width: 45%;
-  /* height: 240px; */
+  width: 46%;
+  height: min-content;
   margin: 10px 5px;
   background-color: ${({theme}) => theme.colors.white};
-  border-radius: 13px;
+  border-radius: 10px;
   box-sizing: border-box;
   box-shadow: 0.3rem 0.3rem 0.6rem #c8d0e7;
   cursor: pointer;
 `;
 const MemoTitle = styled.div`
-  border-top-left-radius: 13px;
-  border-top-right-radius: 13px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   font-size: 16px;
   font-weight: 500;
-  padding: 14px;
+  padding: 12px;
   background-color: ${({theme}) => theme.colors.shadowGray};
 `;
 const MemoContent = styled.div`

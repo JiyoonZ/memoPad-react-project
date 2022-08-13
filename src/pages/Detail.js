@@ -2,7 +2,7 @@ import Container from "../components/Container";
 import Button from "../components/Button";
 import styled from "styled-components";
 import Modal from "../components/Modal";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
   faArrowLeftLong,
@@ -10,10 +10,18 @@ import {
   faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
 import {faBookmark as regularBookmark} from "@fortawesome/free-regular-svg-icons";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 // regural/light 골라서 Import 해주기
 
 function Detail() {
+  let param = useParams();
+  const [data, setData] = useState({title: null, content: null});
+
+  useEffect(() => {
+    const datas = JSON.parse(localStorage.getItem("memoList"));
+    setData(datas.filter((ele) => Number(ele.id) === Number(param.id))[0]);
+  }, []);
+
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [bookMark, setBookMark] = useState(false);
@@ -50,11 +58,8 @@ function Detail() {
           </SettingBtn>
         </Flexbox>
         <MemoContainer>
-          <Title>메모 제목입니다</Title>
-          <Content>
-            메모내용입니다.메모내용입니다. 메모내용입니다.메모내용입니다.
-            메모내용입니다.메모내용입니다.메모내용입니다.
-          </Content>
+          <Title>{data.title}</Title>
+          <Content>{data.content}</Content>
         </MemoContainer>
       </Container>
     </div>

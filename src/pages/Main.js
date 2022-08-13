@@ -16,9 +16,6 @@ function Main() {
   function createHandler() {
     navigate("/create");
   }
-  function goDetailHandler() {
-    navigate("/detail");
-  }
   return (
     <Container>
       <Title>Zeeyoon님의</Title>
@@ -34,9 +31,7 @@ function Main() {
         {!datas ? (
           <EmptyMemo>😅 메모가 없습니다.</EmptyMemo>
         ) : (
-          datas.map((ele) => (
-            <MemoBox key={ele.id} data={ele} onClick={goDetailHandler} />
-          ))
+          datas.map((ele) => <MemoBox key={ele.id} data={ele} />)
         )}
       </FlexMemo>
     </Container>
@@ -51,21 +46,11 @@ const EmptyMemo = styled.div`
 const FlexMemo = styled.div`
   height: 80%;
   overflow-y: scroll;
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.4);
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 9px;
-  }
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  &::-webkit-scrollbar-track {
-    background: ${({theme}) => theme.colors.mainGray};
+  justify-content: flex-start;
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 const FlexNav = styled.div`
