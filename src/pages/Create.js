@@ -10,8 +10,9 @@ import {useState} from "react";
 function Create() {
   const navigate = useNavigate();
   let existedEntry = JSON.parse(localStorage.getItem("memoList"));
+  const lastIndex = existedEntry.length - 1;
   const [memoId, setMemoId] = useState(
-    existedEntry ? existedEntry.length + 1 : 1
+    existedEntry ? existedEntry[lastIndex].id + 1 : 1
   );
   function goBackHandler() {
     navigate("/");
