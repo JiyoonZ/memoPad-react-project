@@ -12,6 +12,7 @@ import {useNavigate} from "react-router-dom";
 function Modal({modalSet, closeModal, data}) {
   const modalRef = useRef();
   const navigate = useNavigate();
+  let existedDatas = JSON.parse(localStorage.getItem("memoList"));
   useEffect(() => {
     document.addEventListener("click", clickModalOutside, true);
     return () => {
@@ -26,6 +27,13 @@ function Modal({modalSet, closeModal, data}) {
   }
   function updateHandler() {
     navigate(`/update/${data.id}`);
+  }
+  function deleteHandler() {
+    const filteredEntry = existedDatas.filter((ele) => {
+      return ele.id !== data.id;
+    });
+    localStorage.setItem("memoList", JSON.stringify(filteredEntry));
+    navigate("/");
   }
   return (
     <ModalLayer>
@@ -47,7 +55,7 @@ function Modal({modalSet, closeModal, data}) {
             </IconBox>
           </ButtonBox>
           <ButtonBox btnColor="red">
-            <IconBox>
+            <IconBox onClick={deleteHandler}>
               <FontAwesomeIcon icon={faTrashCan} />
               <div className="iconName">삭제하기</div>
             </IconBox>
