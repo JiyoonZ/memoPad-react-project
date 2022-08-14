@@ -15,21 +15,39 @@ import {useState, useEffect} from "react";
 
 function Detail() {
   let param = useParams();
-  const [data, setData] = useState({title: null, content: null});
-
-  useEffect(() => {
-    const datas = JSON.parse(localStorage.getItem("memoList"));
-    setData(datas.filter((ele) => Number(ele.id) === Number(param.id))[0]);
-  }, []);
-
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [bookMark, setBookMark] = useState(false);
+  const [data, setData] = useState({title: null, content: null});
+  useEffect(() => {
+    const datas = JSON.parse(localStorage.getItem("memoList"));
+    const filteredData = datas.filter(
+      (ele) => Number(ele.id) === Number(param.id)
+    )[0];
+    setData(filteredData);
+    setBookMark(filteredData.bookMark);
+  }, []);
+
   function goBackHandler() {
     navigate("/");
   }
   function bookMarkClickHandler() {
     setBookMark((prev) => !prev);
+    const memoEntry = {
+      id: data.id,
+      title: data.title,
+      content: data.content,
+      date: data.date,
+      bookMark: !bookMark,
+    };
+    const existedDatas = JSON.parse(localStorage.getItem("memoList"));
+    const updatedEntry = existedDatas.map((ele) => {
+      if (ele.id === data.id) {
+        return (ele = {...memoEntry});
+      }
+      return ele;
+    });
+    localStorage.setItem("memoList", JSON.stringify(updatedEntry));
   }
   function openModal() {
     setModal(true);

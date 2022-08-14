@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBookmark} from "@fortawesome/free-solid-svg-icons";
+
 function MemoBox({data}) {
   const navigate = useNavigate();
   function goMemoHanlder() {
@@ -7,6 +10,7 @@ function MemoBox({data}) {
   }
   return (
     <BoxWrapper onClick={goMemoHanlder}>
+      {data.bookMark && <FontAwesomeIcon icon={faBookmark} className="mark" />}
       <MemoTitle>{data.title}</MemoTitle>
       <MemoContent>{data.content}</MemoContent>
     </BoxWrapper>
@@ -20,7 +24,16 @@ const BoxWrapper = styled.div`
   border-radius: 10px;
   box-sizing: border-box;
   box-shadow: 0.3rem 0.3rem 0.6rem #c8d0e7;
+  position: relative;
   cursor: pointer;
+  .mark {
+    position: absolute;
+    top: -5px;
+    right: 10px;
+    color: #edf25c;
+    stroke: darkgray;
+    stroke-width: 20;
+  }
 `;
 const MemoTitle = styled.div`
   border-top-left-radius: 10px;

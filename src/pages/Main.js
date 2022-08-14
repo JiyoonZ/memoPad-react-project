@@ -7,10 +7,13 @@ import {useEffect, useState} from "react";
 function Main() {
   const navigate = useNavigate();
   const [datas, setData] = useState(null);
+  const [bookMarkData, setBookMarkData] = useState(null);
+  const [readBookMark, setReadBookMark] = useState(false);
   useEffect(() => {
     const existData = JSON.parse(localStorage.getItem("memoList"));
     if (existData) {
       setData(existData);
+      setBookMarkData(existData.filter((ele) => ele.bookMark));
     }
   }, []);
   function createHandler() {
@@ -24,12 +27,28 @@ function Main() {
         <Button onClick={createHandler} btnColor="red">
           + NEW
         </Button>
-        <Button btnColor="blue">모두보기</Button>
-        <Button btnColor="blue">즐겨찾기</Button>
+        <Button
+          btnColor="blue"
+          onClick={() => {
+            setReadBookMark(false);
+          }}
+        >
+          모두보기
+        </Button>
+        <Button
+          btnColor="blue"
+          onClick={() => {
+            setReadBookMark(true);
+          }}
+        >
+          즐겨찾기
+        </Button>
       </FlexNav>
       <FlexMemo>
         {!datas ? (
           <EmptyMemo>😅 메모가 없습니다.</EmptyMemo>
+        ) : readBookMark ? (
+          bookMarkData.map((ele) => <MemoBox key={ele.id} data={ele} />)
         ) : (
           datas.map((ele) => <MemoBox key={ele.id} data={ele} />)
         )}
