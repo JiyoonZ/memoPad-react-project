@@ -30,6 +30,7 @@ function Update() {
       title: evt.target.title.value,
       content: evt.target.content.value,
       date: dayjs(new Date()).format("YYYY-MM-DD"),
+      bookMark: data.bookMark,
     };
     const updatedEntry = existedDatas.map((ele) => {
       if (ele.id === data.id) {
