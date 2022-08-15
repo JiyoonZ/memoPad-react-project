@@ -5,11 +5,16 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowLeftLong} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
 import dayjs from "dayjs";
-import {useState} from "react";
+import {useState, useRef} from "react";
 
 function Create() {
   const navigate = useNavigate();
+  // useRef 사용법 2개 공부하기
+  // useMemo => 쓸데없는 렌더링 관련해서 공부하기
+  // 데이터 임시보관할때도 사용함
+  // const idRef = useRef(1);
   let existedEntry = JSON.parse(localStorage.getItem("memoList"));
+
   const [memoId, setMemoId] = useState(
     existedEntry ? existedEntry[existedEntry.length - 1].id + 1 : 1
   );

@@ -31,7 +31,7 @@ const BoxWrapper = styled.div`
     top: -5px;
     right: 10px;
     color: #edf25c;
-    stroke: darkgray;
+    stroke: white;
     stroke-width: 20;
   }
 `;

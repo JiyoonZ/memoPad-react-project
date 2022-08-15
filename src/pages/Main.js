@@ -4,6 +4,7 @@ import Container from "../components/Container";
 import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import {useEffect, useState} from "react";
+
 function Main() {
   const navigate = useNavigate();
   const [datas, setData] = useState(null);
@@ -70,6 +71,7 @@ const FlexMemo = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  align-content: flex-start;
   &::-webkit-scrollbar {
     display: none;
   }

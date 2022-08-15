@@ -4,6 +4,7 @@ import Create from "./pages/Create";
 import Detail from "./pages/Detail";
 import Update from "./pages/Update";
 import "./reset.css";
+
 function App() {
   return (
     <BrowserRouter>
