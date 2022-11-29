@@ -4,9 +4,11 @@ import Create from "./pages/Create";
 import Detail from "./pages/Detail";
 import Update from "./pages/Update";
 import "./reset.css";
+import React from "react";
 
 function App() {
   return (
+    // <BrowserRouter basename={process.env.PUBLIC_URL}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />

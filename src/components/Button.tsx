@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Button = styled.button`
+const Button = styled.button<{btnColor: string}>`
   height: 2rem;
   border: none;
   border-radius: 12px;

@@ -2,8 +2,12 @@ import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBookmark} from "@fortawesome/free-solid-svg-icons";
-
-function MemoBox({data}) {
+import React from "react";
+import {IMemo} from "../atoms";
+interface IMemoBox {
+  data: IMemo;
+}
+function MemoBox({data}: IMemoBox) {
   const navigate = useNavigate();
   function goMemoHanlder() {
     navigate(`/detail/${data.id}`);
