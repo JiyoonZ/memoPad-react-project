@@ -1,24 +1,19 @@
+import React from "react";
 import MemoBox from "../components/MemoBox";
 import Button from "../components/Button";
 import Container from "../components/Container";
 import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import {useEffect, useState} from "react";
-import React from "react";
-import {IMemo, IMemoList} from "../atoms";
+import {IMemo, memoState} from "../atoms";
+import {useRecoilState} from "recoil";
 
 function Main() {
   const navigate = useNavigate();
-  const [datas, setData] = useState<IMemo[]>();
   const [bookMarkData, setBookMarkData] = useState<IMemo[]>();
   const [readBookMark, setReadBookMark] = useState<boolean>(false);
-  useEffect(() => {
-    const existData = JSON.parse(localStorage?.getItem("memoList") as any);
-    if (existData) {
-      setData(existData);
-      setBookMarkData(existData.filter((ele: any) => ele.bookMark));
-    }
-  }, []);
+  const [memos, setMemos] = useRecoilState<IMemo[]>(memoState);
+
   function createHandler() {
     navigate("/create");
   }
@@ -48,12 +43,12 @@ function Main() {
         </Button>
       </FlexNav>
       <FlexMemo>
-        {!datas ? (
+        {memos.length === 0 ? (
           <EmptyMemo>😅 메모가 없습니다.</EmptyMemo>
         ) : readBookMark ? (
           bookMarkData?.map((ele) => <MemoBox key={ele.id} data={ele} />)
         ) : (
-          datas.map((ele) => <MemoBox key={ele.id} data={ele} />)
+          memos.map((memo) => <MemoBox key={memo.id} data={memo} />)
         )}
       </FlexMemo>
     </Container>

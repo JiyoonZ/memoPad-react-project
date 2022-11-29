@@ -12,7 +12,8 @@ import {
 import {faBookmark as regularBookmark} from "@fortawesome/free-regular-svg-icons";
 import {useState, useEffect} from "react";
 import React from "react";
-import {IMemo} from "../atoms";
+import {IMemo, memoState} from "../atoms";
+import {useRecoilState} from "recoil";
 // regural/light 골라서 Import 해주기
 
 function Detail() {
@@ -21,11 +22,11 @@ function Detail() {
   const [modal, setModal] = useState<boolean>(false);
   const [bookMark, setBookMark] = useState<boolean>(false);
   const [data, setData] = useState<IMemo>();
+  const [memos, setMemos] = useRecoilState<IMemo[]>(memoState);
 
   useEffect(() => {
-    const datas = JSON.parse(localStorage.getItem("memoList") as any);
-    const filteredData = datas.filter(
-      (ele: any) => Number(ele.id) === Number(param.id)
+    const filteredData = memos.filter(
+      (memo) => Number(memo.id) === Number(param.id)
     )[0];
     setData(filteredData);
     setBookMark(filteredData.bookMark);
@@ -34,6 +35,7 @@ function Detail() {
   function goBackHandler() {
     navigate("/");
   }
+  console.log([...memos], "dd");
   function bookMarkClickHandler() {
     setBookMark((prev) => !prev);
     const memoEntry: IMemo = {
@@ -43,14 +45,16 @@ function Detail() {
       date: data?.date + "",
       bookMark: !bookMark,
     };
-    const existedDatas = JSON.parse(localStorage.getItem("memoList") as any);
-    const updatedEntry = existedDatas.map((ele: any) => {
-      if (ele.id === data?.id) {
-        return (ele = {...memoEntry});
-      }
-      return ele;
+    setMemos((prev): IMemo[] => {
+      const old = [...prev];
+      const updatedMemo: IMemo[] = old.map((memo) => {
+        if (memo?.id === data?.id) {
+          return (memo = memoEntry);
+        }
+        return memo;
+      });
+      return [...updatedMemo];
     });
-    localStorage.setItem("memoList", JSON.stringify(updatedEntry));
   }
   function openModal() {
     setModal(true);

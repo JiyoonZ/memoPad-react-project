@@ -31,7 +31,7 @@ function Update() {
     evt.preventDefault();
     const memoEntry = {
       id: Number(data?.id),
-      title: evt.target.title.value,
+      title: evt.target.title.value + "",
       content: evt.target.content.value,
       date: dayjs(new Date()).format("YYYY-MM-DD"),
       bookMark: data?.bookMark,

@@ -1,3 +1,5 @@
+import {recoilPersist} from "recoil-persist";
+import {atom} from "recoil";
 export interface IMemo {
   id: number;
   title: string;
@@ -6,6 +8,13 @@ export interface IMemo {
   bookMark: boolean;
 }
 
-export interface IMemoList {
-  memo: IMemo[];
-}
+const {persistAtom} = recoilPersist({
+  key: "memoList",
+  storage: localStorage,
+});
+
+export const memoState = atom<IMemo[]>({
+  key: "memo",
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});
