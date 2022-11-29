@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/memoPad-react-project/static/css/main.35e30529.css",
+    "main.js": "/memoPad-react-project/static/js/main.06fa01a1.js",
+    "index.html": "/memoPad-react-project/index.html",
+    "main.35e30529.css.map": "/memoPad-react-project/static/css/main.35e30529.css.map",
+    "main.06fa01a1.js.map": "/memoPad-react-project/static/js/main.06fa01a1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.35e30529.css",
+    "static/js/main.06fa01a1.js"
+  ]
+}
