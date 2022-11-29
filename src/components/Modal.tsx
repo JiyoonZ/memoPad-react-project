@@ -8,36 +8,40 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
+import React from "react";
+import {IMemo} from "../atoms";
 
-function Modal({modalSet, closeModal, data}) {
-  const modalRef = useRef();
+interface IModal {
+  modalSet: boolean;
+  closeModal: () => void;
+  data?: IMemo;
+}
+function Modal({modalSet, closeModal, data}: IModal) {
+  const modalRef = useRef<any>();
   const navigate = useNavigate();
-  let existedDatas = JSON.parse(localStorage.getItem("memoList"));
-  useEffect(() => {
-    document.addEventListener("click", clickModalOutside, true);
-    return () => {
-      document.removeEventListener("click", clickModalOutside, true);
-    };
-  });
+  let existedDatas = JSON.parse(
+    localStorage.getItem("memoList") as any
+  ) as IMemo[];
 
-  function clickModalOutside(evt) {
+  function clickModalOutside(evt: React.MouseEvent<HTMLElement>) {
     if (modalSet && !modalRef.current.contains(evt.target)) {
       closeModal();
     }
   }
   function updateHandler() {
-    navigate(`/update/${data.id}`);
+    navigate(`/update/${data?.id}`);
   }
   function deleteHandler() {
-    const filteredEntry = existedDatas.filter((ele) => {
-      return ele.id !== data.id;
+    const filteredEntry = existedDatas.filter((ele: any) => {
+      return ele.id !== data?.id;
     });
     localStorage.setItem("memoList", JSON.stringify(filteredEntry));
     navigate("/");
   }
   return (
     <ModalLayer>
-      <CloseBtn>
+      <Overlay onClick={clickModalOutside} />
+      <CloseBtn onClick={clickModalOutside}>
         <FontAwesomeIcon icon={faXmark} />
       </CloseBtn>
       <ModalBox ref={modalRef}>
@@ -77,6 +81,7 @@ const CloseBtn = styled.div`
   text-align: center;
   line-height: 40px;
   cursor: pointer;
+  z-index: 9999;
 `;
 const IconBox = styled.div`
   margin-top: calc((90px / 2) - (56.62px / 2));
@@ -90,7 +95,7 @@ const FlexBox = styled.div`
   padding: 30px 25px;
   box-sizing: border-box;
 `;
-const ButtonBox = styled.div`
+const ButtonBox = styled.div<{btnColor: string}>`
   cursor: pointer;
   width: 30%;
   height: 90px;
@@ -112,6 +117,7 @@ const ModalBox = styled.div`
   border-radius: 13px;
   color: black;
   margin-top: 20px;
+  z-index: 9999;
 `;
 const ModalLayer = styled.div`
   width: 100%;
@@ -119,7 +125,14 @@ const ModalLayer = styled.div`
   position: fixed;
   ${({theme}) => theme.layout.flexCenterColumn}
   justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
+  /* background: rgba(0, 0, 0, 0.5); */
   z-index: 999;
+`;
+const Overlay = styled.div`
+  background: rgba(0, 0, 0, 0.5);
+
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
 `;
 export default Modal;

@@ -6,12 +6,16 @@ import {faArrowLeftLong} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate, useParams} from "react-router-dom";
 import dayjs from "dayjs";
 import {useState, useEffect} from "react";
+import React from "react";
+import {IMemo} from "../atoms";
 
 function Update() {
   const navigate = useNavigate();
   let param = useParams();
-  const [data, setData] = useState({title: null, content: null});
-  let existedDatas = JSON.parse(localStorage.getItem("memoList"));
+  const [data, setData] = useState<IMemo>();
+  let existedDatas = JSON.parse(
+    localStorage.getItem("memoList") as any
+  ) as IMemo[];
   useEffect(() => {
     setData(
       existedDatas.filter((ele) => Number(ele.id) === Number(param.id))[0]
@@ -23,23 +27,23 @@ function Update() {
   function goBackHandler() {
     navigate("/");
   }
-  function submitHandler(evt) {
+  function submitHandler(evt: any) {
     evt.preventDefault();
     const memoEntry = {
-      id: data.id,
+      id: Number(data?.id),
       title: evt.target.title.value,
       content: evt.target.content.value,
       date: dayjs(new Date()).format("YYYY-MM-DD"),
-      bookMark: data.bookMark,
+      bookMark: data?.bookMark,
     };
-    const updatedEntry = existedDatas.map((ele) => {
-      if (ele.id === data.id) {
+    const updatedEntry = existedDatas.map((ele: any) => {
+      if (ele.id === data?.id) {
         return (ele = {...memoEntry});
       }
       return ele;
     });
     localStorage.setItem("memoList", JSON.stringify(updatedEntry));
-    navigate(`/detail/${data.id}`);
+    navigate(`/detail/${data?.id}`);
   }
   return (
     <div>
@@ -58,12 +62,12 @@ function Update() {
           <TitleInput
             placeholder="제목을 입력해주세요."
             name="title"
-            defaultValue={data.title}
+            defaultValue={data?.title}
           />
           <ContentInput
             placeholder="내용을 입력해주세요."
             name="content"
-            defaultValue={data.content}
+            defaultValue={data?.content}
           />
         </Container>
       </form>

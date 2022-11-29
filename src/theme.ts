@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 const colors = {
   mainGray: "#e4ebf5",
   shadowGray: "#c8d0e7",

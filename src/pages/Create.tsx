@@ -6,6 +6,8 @@ import {faArrowLeftLong} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
 import dayjs from "dayjs";
 import {useState, useRef} from "react";
+import React from "react";
+import {IMemo} from "../atoms";
 
 function Create() {
   const navigate = useNavigate();
@@ -13,23 +15,27 @@ function Create() {
   // useMemo => 쓸데없는 렌더링 관련해서 공부하기
   // 데이터 임시보관할때도 사용함
   // const idRef = useRef(1);
-  let existedEntry = JSON.parse(localStorage.getItem("memoList"));
+  let existedEntry = JSON.parse(
+    localStorage.getItem("memoList") as any
+  ) as IMemo[];
 
-  const [memoId, setMemoId] = useState(
+  const [memoId, setMemoId] = useState<number>(
     existedEntry ? existedEntry[existedEntry.length - 1].id + 1 : 1
   );
   function goBackHandler() {
     navigate("/");
   }
-  function submitHandler(evt) {
+  function submitHandler(evt: any) {
     evt.preventDefault();
-    const memoEntry = {
-      id: memoId,
-      title: evt.target.title.value,
-      content: evt.target.content.value,
-      date: dayjs(new Date()).format("YYYY-MM-DD"),
+
+    const memoEntry: IMemo = {
+      id: +memoId,
+      title: evt.target.title.value + "",
+      content: evt.target.content.value + "",
+      date: dayjs(new Date()).format("YYYY-MM-DD") + "",
       bookMark: false,
     };
+
     if (existedEntry === null) {
       existedEntry = [];
     }

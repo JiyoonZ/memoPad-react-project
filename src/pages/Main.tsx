@@ -4,17 +4,19 @@ import Container from "../components/Container";
 import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import {useEffect, useState} from "react";
+import React from "react";
+import {IMemo, IMemoList} from "../atoms";
 
 function Main() {
   const navigate = useNavigate();
-  const [datas, setData] = useState(null);
-  const [bookMarkData, setBookMarkData] = useState(null);
-  const [readBookMark, setReadBookMark] = useState(false);
+  const [datas, setData] = useState<IMemo[]>();
+  const [bookMarkData, setBookMarkData] = useState<IMemo[]>();
+  const [readBookMark, setReadBookMark] = useState<boolean>(false);
   useEffect(() => {
-    const existData = JSON.parse(localStorage.getItem("memoList"));
+    const existData = JSON.parse(localStorage?.getItem("memoList") as any);
     if (existData) {
       setData(existData);
-      setBookMarkData(existData.filter((ele) => ele.bookMark));
+      setBookMarkData(existData.filter((ele: any) => ele.bookMark));
     }
   }, []);
   function createHandler() {
@@ -49,7 +51,7 @@ function Main() {
         {!datas ? (
           <EmptyMemo>😅 메모가 없습니다.</EmptyMemo>
         ) : readBookMark ? (
-          bookMarkData.map((ele) => <MemoBox key={ele.id} data={ele} />)
+          bookMarkData?.map((ele) => <MemoBox key={ele.id} data={ele} />)
         ) : (
           datas.map((ele) => <MemoBox key={ele.id} data={ele} />)
         )}
