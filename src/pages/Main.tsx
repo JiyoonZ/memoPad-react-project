@@ -9,6 +9,7 @@ import {useRecoilValue} from "recoil";
 import {HomeIcon} from "../components/LeftNav";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 
 function Main() {
   const {pathname} = useLocation();
@@ -21,8 +22,9 @@ function Main() {
   function createHandler() {
     navigate("/create");
   }
+  const onDragEnd = () => {};
   return (
-    <>
+    <DragDropContext onDragEnd={onDragEnd}>
       <Container>
         <Title>Zeeyoon님의</Title>
         <Title>MemoPad 📚</Title>
@@ -49,15 +51,22 @@ function Main() {
             즐겨찾기
           </Button>
         </FlexNav>
-        <FlexMemo>
-          {memos.length === 0 ? (
-            <EmptyMemo>😅 메모가 없습니다.</EmptyMemo>
-          ) : readBookMark ? (
-            <Outlet />
-          ) : (
-            memos.map((memo) => <MemoBox key={memo.id} data={memo} />)
+        <Droppable droppableId="one">
+          {(magic, info) => (
+            <FlexMemo ref={magic.innerRef} {...magic.droppableProps}>
+              {memos.length === 0 ? (
+                <EmptyMemo>😅 메모가 없습니다.</EmptyMemo>
+              ) : readBookMark ? (
+                <Outlet />
+              ) : (
+                memos.map((memo, index) => (
+                  <MemoBox key={memo.id} data={memo} index={index} />
+                ))
+              )}
+              {/* {magic.placeholder} */}
+            </FlexMemo>
           )}
-        </FlexMemo>
+        </Droppable>
         <DeleteNav>
           <DeleteIcon>
             <FontAwesomeIcon icon={faTrashCan} className="home" />
@@ -65,7 +74,7 @@ function Main() {
           <Info>drag and drop here to delete!</Info>
         </DeleteNav>
       </Container>
-    </>
+    </DragDropContext>
   );
 }
 const Info = styled.p`
@@ -99,6 +108,7 @@ const FlexMemo = styled.div`
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
+  border: 1px solid black;
   &::-webkit-scrollbar {
     display: none;
   }

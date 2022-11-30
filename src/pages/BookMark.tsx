@@ -6,8 +6,8 @@ function BookMark() {
   const bookMarkData = useRecoilValue<IMemo[]>(memoSelector);
   return (
     <>
-      {bookMarkData.map((memo) => (
-        <MemoBox key={memo.id} data={memo} />
+      {bookMarkData.map((memo, index) => (
+        <MemoBox key={memo.id} data={memo} index={index} />
       ))}
     </>
   );
