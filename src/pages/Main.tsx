@@ -51,22 +51,18 @@ function Main() {
             즐겨찾기
           </Button>
         </FlexNav>
-        <Droppable droppableId="one">
-          {(magic, info) => (
-            <FlexMemo ref={magic.innerRef} {...magic.droppableProps}>
-              {memos.length === 0 ? (
-                <EmptyMemo>😅 메모가 없습니다.</EmptyMemo>
-              ) : readBookMark ? (
-                <Outlet />
-              ) : (
-                memos.map((memo, index) => (
-                  <MemoBox key={memo.id} data={memo} index={index} />
-                ))
-              )}
-              {/* {magic.placeholder} */}
-            </FlexMemo>
+        <FlexMemo>
+          {memos.length === 0 ? (
+            <EmptyMemo>😅 메모가 없습니다.</EmptyMemo>
+          ) : readBookMark ? (
+            <Outlet />
+          ) : (
+            memos.map((memo, index) => (
+              <MemoBox key={memo.id + ""} data={memo} index={index} />
+            ))
           )}
-        </Droppable>
+        </FlexMemo>
+
         <DeleteNav>
           <DeleteIcon>
             <FontAwesomeIcon icon={faTrashCan} className="home" />
