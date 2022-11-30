@@ -6,11 +6,12 @@ import Update from "./pages/Update";
 import "./reset.css";
 import React from "react";
 import BookMark from "./pages/BookMark";
-
+import LeftNav from "./components/LeftNav";
 function App() {
   return (
     // <BrowserRouter basename={process.env.PUBLIC_URL}>
     <BrowserRouter>
+      <LeftNav />
       <Routes>
         <Route path="/create" element={<Create />} />
         <Route path="/detail/:id" element={<Detail />} />
