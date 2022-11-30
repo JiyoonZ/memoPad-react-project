@@ -33,9 +33,9 @@ function Detail() {
   }, []);
 
   function goBackHandler() {
-    navigate("/");
+    navigate(-1);
   }
-  console.log([...memos], "dd");
+
   function bookMarkClickHandler() {
     setBookMark((prev) => !prev);
     const memoEntry: IMemo = {

@@ -1,18 +1,19 @@
-import React from "react";
 import MemoBox from "../components/MemoBox";
 import Button from "../components/Button";
 import Container from "../components/Container";
-import {useNavigate} from "react-router-dom";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import styled from "styled-components";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {IMemo, memoState} from "../atoms";
-import {useRecoilState} from "recoil";
+import {useRecoilValue} from "recoil";
 
 function Main() {
+  const {pathname} = useLocation();
   const navigate = useNavigate();
-  const [bookMarkData, setBookMarkData] = useState<IMemo[]>();
-  const [readBookMark, setReadBookMark] = useState<boolean>(false);
-  const [memos, setMemos] = useRecoilState<IMemo[]>(memoState);
+  const [readBookMark, setReadBookMark] = useState<boolean>(
+    pathname === "/bookmark" ? true : false
+  );
+  const memos = useRecoilValue<IMemo[]>(memoState);
 
   function createHandler() {
     navigate("/create");
@@ -28,6 +29,7 @@ function Main() {
         <Button
           btnColor="blue"
           onClick={() => {
+            navigate("/");
             setReadBookMark(false);
           }}
         >
@@ -36,6 +38,7 @@ function Main() {
         <Button
           btnColor="blue"
           onClick={() => {
+            navigate("/bookmark");
             setReadBookMark(true);
           }}
         >
@@ -46,7 +49,7 @@ function Main() {
         {memos.length === 0 ? (
           <EmptyMemo>😅 메모가 없습니다.</EmptyMemo>
         ) : readBookMark ? (
-          bookMarkData?.map((ele) => <MemoBox key={ele.id} data={ele} />)
+          <Outlet />
         ) : (
           memos.map((memo) => <MemoBox key={memo.id} data={memo} />)
         )}
