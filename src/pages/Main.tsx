@@ -6,6 +6,9 @@ import styled from "styled-components";
 import {useState} from "react";
 import {IMemo, memoState} from "../atoms";
 import {useRecoilValue} from "recoil";
+import {HomeIcon} from "../components/LeftNav";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
 
 function Main() {
   const {pathname} = useLocation();
@@ -19,44 +22,68 @@ function Main() {
     navigate("/create");
   }
   return (
-    <Container>
-      <Title>Zeeyoon님의</Title>
-      <Title>MemoPad 📚</Title>
-      <FlexNav>
-        <Button onClick={createHandler} btnColor="red">
-          + NEW
-        </Button>
-        <Button
-          btnColor="blue"
-          onClick={() => {
-            navigate("/");
-            setReadBookMark(false);
-          }}
-        >
-          모두보기
-        </Button>
-        <Button
-          btnColor="blue"
-          onClick={() => {
-            navigate("/bookmark");
-            setReadBookMark(true);
-          }}
-        >
-          즐겨찾기
-        </Button>
-      </FlexNav>
-      <FlexMemo>
-        {memos.length === 0 ? (
-          <EmptyMemo>😅 메모가 없습니다.</EmptyMemo>
-        ) : readBookMark ? (
-          <Outlet />
-        ) : (
-          memos.map((memo) => <MemoBox key={memo.id} data={memo} />)
-        )}
-      </FlexMemo>
-    </Container>
+    <>
+      <Container>
+        <Title>Zeeyoon님의</Title>
+        <Title>MemoPad 📚</Title>
+        <FlexNav>
+          <Button onClick={createHandler} btnColor="red">
+            + NEW
+          </Button>
+          <Button
+            btnColor="blue"
+            onClick={() => {
+              navigate("/");
+              setReadBookMark(false);
+            }}
+          >
+            모두보기
+          </Button>
+          <Button
+            btnColor="blue"
+            onClick={() => {
+              navigate("/bookmark");
+              setReadBookMark(true);
+            }}
+          >
+            즐겨찾기
+          </Button>
+        </FlexNav>
+        <FlexMemo>
+          {memos.length === 0 ? (
+            <EmptyMemo>😅 메모가 없습니다.</EmptyMemo>
+          ) : readBookMark ? (
+            <Outlet />
+          ) : (
+            memos.map((memo) => <MemoBox key={memo.id} data={memo} />)
+          )}
+        </FlexMemo>
+        <DeleteNav>
+          <DeleteIcon>
+            <FontAwesomeIcon icon={faTrashCan} className="home" />
+          </DeleteIcon>
+          <Info>drag and drop here to delete!</Info>
+        </DeleteNav>
+      </Container>
+    </>
   );
 }
+const Info = styled.p`
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 13px;
+`;
+const DeleteIcon = styled(HomeIcon)`
+  color: red;
+  cursor: pointer;
+`;
+const DeleteNav = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 108%;
+  width: max-content;
+`;
+
 const EmptyMemo = styled.div`
   font-size: 20px;
   font-weight: 600;
