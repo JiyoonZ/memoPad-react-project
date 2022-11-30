@@ -7,10 +7,12 @@ import {useNavigate} from "react-router-dom";
 import dayjs from "dayjs";
 import {useState, useRef} from "react";
 import React from "react";
-import {IMemo} from "../atoms";
+import {IMemo, memoState} from "../atoms";
+import {useRecoilState} from "recoil";
 
 function Create() {
   const navigate = useNavigate();
+  const [memos, setMemos] = useRecoilState<IMemo[]>(memoState);
   // useRef 사용법 2개 공부하기
   // useMemo => 쓸데없는 렌더링 관련해서 공부하기
   // 데이터 임시보관할때도 사용함
@@ -19,9 +21,6 @@ function Create() {
     localStorage.getItem("memoList") as any
   ) as IMemo[];
 
-  const [memoId, setMemoId] = useState<number>(
-    existedEntry ? existedEntry[existedEntry.length - 1].id + 1 : 1
-  );
   function goBackHandler() {
     navigate("/");
   }
@@ -29,18 +28,15 @@ function Create() {
     evt.preventDefault();
 
     const memoEntry: IMemo = {
-      id: +memoId,
+      id: Date.now() + "",
       title: evt.target.title.value + "",
       content: evt.target.content.value + "",
       date: dayjs(new Date()).format("YYYY-MM-DD") + "",
       bookMark: false,
     };
-
-    if (existedEntry === null) {
-      existedEntry = [];
-    }
-    existedEntry.push(memoEntry);
-    localStorage.setItem("memoList", JSON.stringify(existedEntry));
+    setMemos((prev) => {
+      return [memoEntry, ...prev];
+    });
     navigate("/");
   }
   return (

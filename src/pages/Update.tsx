@@ -7,19 +7,17 @@ import {useNavigate, useParams} from "react-router-dom";
 import dayjs from "dayjs";
 import {useState, useEffect} from "react";
 import React from "react";
-import {IMemo} from "../atoms";
+import {IMemo, memoState} from "../atoms";
+import {useRecoilState} from "recoil";
 
 function Update() {
   const navigate = useNavigate();
   let param = useParams();
+  const [memos, setMemos] = useRecoilState<IMemo[]>(memoState);
   const [data, setData] = useState<IMemo>();
-  let existedDatas = JSON.parse(
-    localStorage.getItem("memoList") as any
-  ) as IMemo[];
+
   useEffect(() => {
-    setData(
-      existedDatas.filter((ele) => Number(ele.id) === Number(param.id))[0]
-    );
+    setData(memos.filter((memo) => memo.id === String(param.id))[0]);
   }, []);
   // 배열을 받아온다.
   // 배열중에 id 값 일치하는 것을 찾는다.
@@ -30,19 +28,19 @@ function Update() {
   function submitHandler(evt: any) {
     evt.preventDefault();
     const memoEntry = {
-      id: Number(data?.id),
-      title: evt.target.title.value,
-      content: evt.target.content.value,
+      id: String(data?.id),
+      title: evt.target.title.value + "",
+      content: evt.target.content.value + "",
       date: dayjs(new Date()).format("YYYY-MM-DD"),
-      bookMark: data?.bookMark,
+      bookMark: Boolean(data?.bookMark),
     };
-    const updatedEntry = existedDatas.map((ele: any) => {
+    const updatedEntry = memos.map((ele) => {
       if (ele.id === data?.id) {
         return (ele = {...memoEntry});
       }
       return ele;
     });
-    localStorage.setItem("memoList", JSON.stringify(updatedEntry));
+    setMemos(updatedEntry);
     navigate(`/detail/${data?.id}`);
   }
   return (
