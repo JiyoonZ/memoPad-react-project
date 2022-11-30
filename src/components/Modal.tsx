@@ -9,7 +9,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
 import React from "react";
-import {IMemo} from "../atoms";
+import {IMemo, memoState} from "../atoms";
+import {useRecoilState} from "recoil";
 
 interface IModal {
   modalSet: boolean;
@@ -19,10 +20,7 @@ interface IModal {
 function Modal({modalSet, closeModal, data}: IModal) {
   const modalRef = useRef<any>();
   const navigate = useNavigate();
-  let existedDatas = JSON.parse(
-    localStorage.getItem("memoList") as any
-  ) as IMemo[];
-
+  const [memos, setMemos] = useRecoilState<IMemo[]>(memoState);
   function clickModalOutside(evt: React.MouseEvent<HTMLElement>) {
     if (modalSet && !modalRef.current.contains(evt.target)) {
       closeModal();
@@ -32,10 +30,10 @@ function Modal({modalSet, closeModal, data}: IModal) {
     navigate(`/update/${data?.id}`);
   }
   function deleteHandler() {
-    const filteredEntry = existedDatas.filter((ele: any) => {
+    const filteredEntry = memos.filter((ele: any) => {
       return ele.id !== data?.id;
     });
-    localStorage.setItem("memoList", JSON.stringify(filteredEntry));
+    setMemos(filteredEntry);
     navigate("/");
   }
   return (

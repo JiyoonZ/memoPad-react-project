@@ -37,11 +37,6 @@ function Create() {
     setMemos((prev) => {
       return [memoEntry, ...prev];
     });
-    // if (existedEntry === null) {
-    //   existedEntry = [];
-    // }
-    // existedEntry.push(memoEntry);
-    // localStorage.setItem("memoList", JSON.stringify(existedEntry));
     navigate("/");
   }
   return (
