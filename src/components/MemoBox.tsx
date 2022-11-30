@@ -16,13 +16,18 @@ function MemoBox({data}: IMemoBox) {
     <BoxWrapper onClick={goMemoHanlder}>
       {data.bookMark && <FontAwesomeIcon icon={faBookmark} className="mark" />}
       <MemoTitle>{data.title}</MemoTitle>
-      <MemoContent>{data.content}</MemoContent>
+      <MemoContent>
+        {data.content.length > 18
+          ? data.content.slice(0, 18) + "····"
+          : data.content}
+      </MemoContent>
     </BoxWrapper>
   );
 }
 const BoxWrapper = styled.div`
   width: 46%;
-  height: min-content;
+  height: 100px;
+  line-height: 18px;
   margin: 10px 5px;
   background-color: ${({theme}) => theme.colors.white};
   border-radius: 10px;

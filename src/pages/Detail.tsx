@@ -39,7 +39,7 @@ function Detail() {
   function bookMarkClickHandler() {
     setBookMark((prev) => !prev);
     const memoEntry: IMemo = {
-      id: Number(data?.id),
+      id: String(data?.id),
       title: data?.title + "",
       content: data?.content + "",
       date: data?.date + "",

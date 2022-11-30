@@ -28,7 +28,7 @@ function Create() {
     evt.preventDefault();
 
     const memoEntry: IMemo = {
-      id: Date.now(),
+      id: Date.now() + "",
       title: evt.target.title.value + "",
       content: evt.target.content.value + "",
       date: dayjs(new Date()).format("YYYY-MM-DD") + "",

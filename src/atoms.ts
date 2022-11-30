@@ -1,7 +1,7 @@
 import {recoilPersist} from "recoil-persist";
 import {atom, selector} from "recoil";
 export interface IMemo {
-  id: number;
+  id: string;
   title: string;
   content: string;
   date: string;
