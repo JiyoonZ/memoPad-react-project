@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/memoPad-react-project/static/css/main.35e30529.css",
-    "main.js": "/memoPad-react-project/static/js/main.934cf3bc.js",
+    "main.css": "/memoPad-react-project/static/css/main.3efec017.css",
+    "main.js": "/memoPad-react-project/static/js/main.f125cb4e.js",
     "index.html": "/memoPad-react-project/index.html",
-    "main.35e30529.css.map": "/memoPad-react-project/static/css/main.35e30529.css.map",
-    "main.934cf3bc.js.map": "/memoPad-react-project/static/js/main.934cf3bc.js.map"
+    "main.3efec017.css.map": "/memoPad-react-project/static/css/main.3efec017.css.map",
+    "main.f125cb4e.js.map": "/memoPad-react-project/static/js/main.f125cb4e.js.map"
   },
   "entrypoints": [
-    "static/css/main.35e30529.css",
-    "static/js/main.934cf3bc.js"
+    "static/css/main.3efec017.css",
+    "static/js/main.f125cb4e.js"
   ]
 }
