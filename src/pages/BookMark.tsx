@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 function BookMark() {
   const bookMarkData = useRecoilValue<IMemo[]>(memoSelector);
-  console.log(bookMarkData.length);
+
   return (
     <>
       {bookMarkData.length !== 0 ? (
