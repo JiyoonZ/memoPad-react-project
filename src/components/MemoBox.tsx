@@ -40,7 +40,7 @@ function MemoBox({data, index}: IMemoBox) {
   );
 }
 const BoxWrapper = styled.div`
-  width: 46%;
+  width: 90%;
   height: 100px;
   line-height: 18px;
   margin: 10px 5px;
@@ -57,8 +57,7 @@ const BoxWrapper = styled.div`
     stroke: white;
     stroke-width: 20;
   }
-  top: auto !important;
-  left: auto !important;
+  will-change: transform;
 `;
 const MemoTitle = styled.div`
   border-top-left-radius: 10px;
@@ -74,4 +73,4 @@ const MemoContent = styled.div`
   color: ${({theme}) => theme.colors.darkGray};
 `;
 
-export default MemoBox;
+export default React.memo(MemoBox);

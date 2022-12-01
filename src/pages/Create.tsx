@@ -53,8 +53,16 @@ function Create() {
             </Button>
           </Flexbox>
 
-          <TitleInput placeholder="제목을 입력해주세요." name="title" />
-          <ContentInput placeholder="내용을 입력해주세요." name="content" />
+          <TitleInput
+            placeholder="제목을 입력해주세요."
+            name="title"
+            required={true}
+          />
+          <ContentInput
+            placeholder="내용을 입력해주세요."
+            name="content"
+            required={true}
+          />
         </Container>
       </form>
     </div>

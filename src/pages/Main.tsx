@@ -5,11 +5,16 @@ import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import {useState} from "react";
 import {IMemo, memoState} from "../atoms";
-import {useRecoilValue} from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 import {HomeIcon} from "../components/LeftNav";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
-import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+} from "react-beautiful-dnd";
 
 function Main() {
   const {pathname} = useLocation();
@@ -17,12 +22,23 @@ function Main() {
   const [readBookMark, setReadBookMark] = useState<boolean>(
     pathname === "/bookmark" ? true : false
   );
-  const memos = useRecoilValue<IMemo[]>(memoState);
+  const [memos, setMemos] = useRecoilState<IMemo[]>(memoState);
 
   function createHandler() {
     navigate("/create");
   }
-  const onDragEnd = () => {};
+  const onDragEnd = (info: DropResult) => {
+    const {destination, source, draggableId} = info;
+    if (destination?.droppableId === source.droppableId) {
+      console.log("안옮겼음!");
+    } else {
+      const isDel = window.confirm("정말 삭제하시겠습니까?");
+      const deletedMemos = isDel
+        ? memos.filter((memo) => memo.id !== draggableId)
+        : memos;
+      setMemos(deletedMemos);
+    }
+  };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Container>
@@ -63,16 +79,25 @@ function Main() {
                   <MemoBox key={memo.id} data={memo} index={index} />
                 ))
               )}
-              {/* {magic.placeholder} */}
+              {magic.placeholder}
             </FlexMemo>
           )}
         </Droppable>
-        <DeleteNav>
-          <DeleteIcon>
-            <FontAwesomeIcon icon={faTrashCan} className="home" />
-          </DeleteIcon>
-          <Info>drag and drop here to delete!</Info>
-        </DeleteNav>
+        <Droppable droppableId="two">
+          {(magic, info) => (
+            <DeleteNav
+              ref={magic.innerRef}
+              {...magic.droppableProps}
+              isDraggingOver={info.isDraggingOver}
+            >
+              <DeleteIcon>
+                <FontAwesomeIcon icon={faTrashCan} className="home" />
+              </DeleteIcon>
+              <Info>drag and drop here to delete!</Info>
+              {magic.placeholder}
+            </DeleteNav>
+          )}
+        </Droppable>
       </Container>
     </DragDropContext>
   );
@@ -82,15 +107,27 @@ const Info = styled.p`
   color: rgba(0, 0, 0, 0.6);
   margin-top: 13px;
 `;
+
 const DeleteIcon = styled(HomeIcon)`
   color: red;
   cursor: pointer;
 `;
-const DeleteNav = styled.div`
+interface IAreaProps {
+  isDraggingOver: boolean;
+}
+const DeleteNav = styled.div<IAreaProps>`
   position: absolute;
   bottom: 10px;
-  left: 108%;
-  width: max-content;
+  left: 103%;
+  width: 200px;
+  height: 70px;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1.5px dotted
+    ${(props) =>
+      props.isDraggingOver ? "transparent" : "rgb(100, 116, 123, .2)"};
+  background-color: ${(props) =>
+    props.isDraggingOver ? "rgb(100, 116, 123, .2)" : "transparent"};
 `;
 
 const EmptyMemo = styled.div`
@@ -102,13 +139,15 @@ const EmptyMemo = styled.div`
   ${({theme}) => theme.layout.flexCenter};
 `;
 const FlexMemo = styled.div`
-  height: 80%;
+  height: 76%;
+  width: 100%;
   overflow-y: scroll;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* flex-wrap: wrap; */
   justify-content: flex-start;
   align-content: flex-start;
-  border: 1px solid black;
+
   &::-webkit-scrollbar {
     display: none;
   }
