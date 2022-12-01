@@ -27,10 +27,7 @@ function Main() {
     if (destination?.droppableId === source.droppableId) {
       console.log("안옮겼음!");
     } else {
-      const isDel = window.confirm("정말 삭제하시겠습니까?");
-      const deletedMemos = isDel
-        ? memos.filter((memo) => memo.id !== draggableId)
-        : memos;
+      const deletedMemos = memos.filter((memo) => memo.id !== draggableId);
       setMemos(deletedMemos);
     }
   };
