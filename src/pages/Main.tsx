@@ -5,16 +5,11 @@ import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import {useState} from "react";
 import {IMemo, memoState} from "../atoms";
-import {useRecoilState, useRecoilValue} from "recoil";
+import {useRecoilState} from "recoil";
 import {HomeIcon} from "../components/LeftNav";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-} from "react-beautiful-dnd";
+import {DragDropContext, Droppable, DropResult} from "react-beautiful-dnd";
 
 function Main() {
   const {pathname} = useLocation();

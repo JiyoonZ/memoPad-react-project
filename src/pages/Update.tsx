@@ -30,7 +30,8 @@ function Update() {
     const memoEntry = {
       id: String(data?.id),
       title: evt.target.title.value + "",
-      content: evt.target.content.value + "",
+      content:
+        evt.target.content.value.replaceAll(/(?:\r\n|\r|\n)/g, "<br/>") + "",
       date: dayjs(new Date()).format("YYYY-MM-DD"),
       bookMark: Boolean(data?.bookMark),
     };
@@ -65,7 +66,7 @@ function Update() {
           <ContentInput
             placeholder="내용을 입력해주세요."
             name="content"
-            defaultValue={data?.content}
+            defaultValue={data?.content.replaceAll("<br/>", "\r\n")}
           />
         </Container>
       </form>

@@ -20,7 +20,6 @@ function MemoBox({data, index}: IMemoBox) {
         <BoxWrapper
           className="draggable"
           onClick={goMemoHanlder}
-          // isDragging={snapshot.isDragging}
           ref={magic.innerRef}
           {...magic.draggableProps}
           {...magic.dragHandleProps}
@@ -28,11 +27,11 @@ function MemoBox({data, index}: IMemoBox) {
           {data.bookMark && (
             <FontAwesomeIcon icon={faBookmark} className="mark" />
           )}
-          <MemoTitle>{data.id}</MemoTitle>
+          <MemoTitle>{data.title}</MemoTitle>
           <MemoContent>
             {data.content.length > 18
-              ? data.content.slice(0, 18) + "····"
-              : data.content}
+              ? data.content.replaceAll("<br/>", "\r\n").slice(0, 18) + "····"
+              : data.content.replaceAll("<br/>", " ")}
           </MemoContent>
         </BoxWrapper>
       )}
