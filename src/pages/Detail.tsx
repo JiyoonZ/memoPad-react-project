@@ -30,6 +30,9 @@ function Detail() {
     )[0];
     setData(filteredData);
     setBookMark(filteredData.bookMark);
+
+    const contents = String(data?.content).replaceAll("<br/>", "\r\n");
+    console.log(contents, "줄바꿨니?");
   }, []);
 
   function goBackHandler() {
@@ -84,7 +87,14 @@ function Detail() {
         </Flexbox>
         <MemoContainer>
           <Title>{data?.title}</Title>
-          <Content>{data?.content}</Content>
+          <Content>
+            {data?.content.split("<br/>").map((line, index) => (
+              <span key={index}>
+                {line}
+                <br />
+              </span>
+            ))}
+          </Content>
         </MemoContainer>
         <Date>{data?.date}</Date>
       </Container>

@@ -9,8 +9,8 @@ import BookMark from "./pages/BookMark";
 import LeftNav from "./components/LeftNav";
 function App() {
   return (
-    // <BrowserRouter basename={process.env.PUBLIC_URL}>
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      {/* <BrowserRouter> */}
       <LeftNav />
       <Routes>
         <Route path="/create" element={<Create />} />

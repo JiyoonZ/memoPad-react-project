@@ -5,8 +5,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowLeftLong} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
 import dayjs from "dayjs";
-import {useState, useRef} from "react";
-import React from "react";
 import {IMemo, memoState} from "../atoms";
 import {useRecoilState} from "recoil";
 
@@ -17,20 +15,16 @@ function Create() {
   // useMemo => 쓸데없는 렌더링 관련해서 공부하기
   // 데이터 임시보관할때도 사용함
   // const idRef = useRef(1);
-  let existedEntry = JSON.parse(
-    localStorage.getItem("memoList") as any
-  ) as IMemo[];
-
   function goBackHandler() {
     navigate("/");
   }
   function submitHandler(evt: any) {
     evt.preventDefault();
-
     const memoEntry: IMemo = {
       id: Date.now() + "",
       title: evt.target.title.value + "",
-      content: evt.target.content.value + "",
+      content:
+        evt.target.content.value.replaceAll(/(?:\r\n|\r|\n)/g, "<br/>") + "",
       date: dayjs(new Date()).format("YYYY-MM-DD") + "",
       bookMark: false,
     };
@@ -53,8 +47,16 @@ function Create() {
             </Button>
           </Flexbox>
 
-          <TitleInput placeholder="제목을 입력해주세요." name="title" />
-          <ContentInput placeholder="내용을 입력해주세요." name="content" />
+          <TitleInput
+            placeholder="제목을 입력해주세요."
+            name="title"
+            required={true}
+          />
+          <ContentInput
+            placeholder="내용을 입력해주세요."
+            name="content"
+            required={true}
+          />
         </Container>
       </form>
     </div>
@@ -79,5 +81,6 @@ const ContentInput = styled.textarea`
   margin: 20px auto;
   resize: none;
   padding: 15px 15px;
+  white-space: pre-wrap;
 `;
 export default Create;

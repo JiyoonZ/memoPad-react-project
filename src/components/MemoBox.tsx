@@ -20,31 +20,30 @@ function MemoBox({data, index}: IMemoBox) {
         <BoxWrapper
           className="draggable"
           onClick={goMemoHanlder}
-          // isDragging={snapshot.isDragging}
           ref={magic.innerRef}
           {...magic.draggableProps}
           {...magic.dragHandleProps}
+          isDragging={snapshot.isDragging}
         >
           {data.bookMark && (
             <FontAwesomeIcon icon={faBookmark} className="mark" />
           )}
-          <MemoTitle>{data.id}</MemoTitle>
+          <MemoTitle>{data.title}</MemoTitle>
           <MemoContent>
             {data.content.length > 18
-              ? data.content.slice(0, 18) + "····"
-              : data.content}
+              ? data.content.replaceAll("<br/>", "\r\n").slice(0, 18) + "····"
+              : data.content.replaceAll("<br/>", " ")}
           </MemoContent>
         </BoxWrapper>
       )}
     </Draggable>
   );
 }
-const BoxWrapper = styled.div`
-  width: 46%;
+const BoxWrapper = styled.div<{isDragging: Boolean}>`
+  width: 90%;
   height: 100px;
   line-height: 18px;
   margin: 10px 5px;
-  background-color: ${({theme}) => theme.colors.white};
   border-radius: 10px;
   box-sizing: border-box;
   box-shadow: 0.3rem 0.3rem 0.6rem #c8d0e7;
@@ -57,8 +56,9 @@ const BoxWrapper = styled.div`
     stroke: white;
     stroke-width: 20;
   }
-  top: auto !important;
-  left: auto !important;
+  will-change: transform;
+  background-color: ${(props) =>
+    props.isDragging ? "rgb(242, 65, 48, .7)" : props.theme.colors.white};
 `;
 const MemoTitle = styled.div`
   border-top-left-radius: 10px;
@@ -74,4 +74,4 @@ const MemoContent = styled.div`
   color: ${({theme}) => theme.colors.darkGray};
 `;
 
-export default MemoBox;
+export default React.memo(MemoBox);
