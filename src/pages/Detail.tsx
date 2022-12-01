@@ -32,7 +32,6 @@ function Detail() {
     setBookMark(filteredData.bookMark);
 
     const contents = String(data?.content).replaceAll("<br/>", "\r\n");
-    console.log(contents, "줄바꿨니?");
   }, []);
 
   function goBackHandler() {

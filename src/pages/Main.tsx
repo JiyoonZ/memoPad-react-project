@@ -25,7 +25,6 @@ function Main() {
   const onDragEnd = (info: DropResult) => {
     const {destination, source, draggableId} = info;
     if (destination?.droppableId === source.droppableId) {
-      console.log("안옮겼음!");
     } else {
       const deletedMemos = memos.filter((memo) => memo.id !== draggableId);
       setMemos(deletedMemos);
