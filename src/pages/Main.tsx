@@ -23,11 +23,12 @@ function Main() {
     navigate("/create");
   }
   const onDragEnd = (info: DropResult) => {
-    const {destination, source, draggableId} = info;
-    if (destination?.droppableId === source.droppableId) {
-    } else {
+    const {destination, draggableId} = info;
+    if (destination?.droppableId === "two") {
       const deletedMemos = memos.filter((memo) => memo.id !== draggableId);
       setMemos(deletedMemos);
+    } else {
+     return;
     }
   };
   return (
