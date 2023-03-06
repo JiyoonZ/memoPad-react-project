@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBookmark} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-import {IMemo} from "../atoms";
+import {IMemo} from "../type";
 import {Draggable} from "react-beautiful-dnd";
 interface IMemoBox {
   data: IMemo;
@@ -12,7 +12,7 @@ interface IMemoBox {
 function MemoBox({data, index}: IMemoBox) {
   const navigate = useNavigate();
   function goMemoHanlder() {
-    navigate(`/detail/${data.id}`);
+    navigate(`/memo/detail/${data.id}`);
   }
   return (
     <Draggable draggableId={data.id + ""} index={index}>

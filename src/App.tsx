@@ -13,10 +13,10 @@ function App() {
       {/* <BrowserRouter> */}
       <LeftNav />
       <Routes>
-        <Route path="/create" element={<Create />} />
-        <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/update/:id" element={<Update />} />
-        <Route path="/" element={<Main />}>
+        <Route path="/memo/create" element={<Create />} />
+        <Route path="/memo/detail/:id" element={<Detail />} />
+        <Route path="/memo/update/:id" element={<Update />} />
+        <Route path="/memo" element={<Main />}>
           <Route path="bookmark" element={<BookMark />} />
         </Route>
       </Routes>

@@ -1,5 +1,6 @@
 import {useRecoilValue} from "recoil";
-import {IMemo, memoSelector} from "../atoms";
+import {memoSelector} from "../atoms";
+import {IMemo} from "../type";
 import MemoBox from "../components/MemoBox";
 import styled from "styled-components";
 

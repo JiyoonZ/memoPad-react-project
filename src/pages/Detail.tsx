@@ -11,10 +11,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {faBookmark as regularBookmark} from "@fortawesome/free-regular-svg-icons";
 import {useState, useEffect} from "react";
-import React from "react";
-import {IMemo, memoState} from "../atoms";
+import {memoState} from "../atoms";
+import {IMemo} from "../type";
 import {useRecoilState} from "recoil";
-// regural/light 골라서 Import 해주기
 
 function Detail() {
   let param = useParams();
@@ -30,12 +29,11 @@ function Detail() {
     )[0];
     setData(filteredData);
     setBookMark(filteredData.bookMark);
-
-    const contents = String(data?.content).replaceAll("<br/>", "\r\n");
+    String(data?.content).replaceAll("<br/>", "\r\n");
   }, []);
 
   function goBackHandler() {
-    navigate(-1);
+    navigate("/memo");
   }
 
   function bookMarkClickHandler() {
@@ -153,10 +151,11 @@ const Content = styled.div`
   margin-top: 15px;
   font-size: 15px;
 `;
-export default Detail;
 
 const Flexbox = styled.div`
   ${({theme}) => theme.layout.flexbox};
   height: 40px;
   font-size: 22px;
 `;
+
+export default Detail;

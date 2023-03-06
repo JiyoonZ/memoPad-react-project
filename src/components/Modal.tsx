@@ -1,4 +1,4 @@
-import {useEffect, useRef} from "react";
+import {useRef} from "react";
 import styled from "styled-components";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
@@ -9,7 +9,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
 import React from "react";
-import {IMemo, memoState} from "../atoms";
+import {memoState} from "../atoms";
+import {IMemo} from "../type";
 import {useRecoilState} from "recoil";
 
 interface IModal {
@@ -27,14 +28,14 @@ function Modal({modalSet, closeModal, data}: IModal) {
     }
   }
   function updateHandler() {
-    navigate(`/update/${data?.id}`);
+    navigate(`/memo/update/${data?.id}`);
   }
   function deleteHandler() {
     const filteredEntry = memos.filter((ele: any) => {
       return ele.id !== data?.id;
     });
     setMemos(filteredEntry);
-    navigate("/");
+    navigate("/memo");
   }
   return (
     <ModalLayer>
