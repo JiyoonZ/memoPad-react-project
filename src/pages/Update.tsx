@@ -23,7 +23,7 @@ function Update() {
   // 배열중에 id 값 일치하는 것을 찾는다.
   // 해당 배열의 object 값을 변경
   function goBackHandler() {
-    navigate("/");
+    navigate("/memo");
   }
   function submitHandler(evt: any) {
     evt.preventDefault();
@@ -42,7 +42,7 @@ function Update() {
       return ele;
     });
     setMemos(updatedEntry);
-    navigate(`/detail/${data?.id}`);
+    navigate(`/memo/detail/${data?.id}`);
   }
   return (
     <div>

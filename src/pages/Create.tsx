@@ -11,12 +11,8 @@ import {useRecoilState} from "recoil";
 function Create() {
   const navigate = useNavigate();
   const [memos, setMemos] = useRecoilState<IMemo[]>(memoState);
-  // useRef 사용법 2개 공부하기
-  // useMemo => 쓸데없는 렌더링 관련해서 공부하기
-  // 데이터 임시보관할때도 사용함
-  // const idRef = useRef(1);
   function goBackHandler() {
-    navigate("/");
+    navigate("/memo");
   }
   function submitHandler(evt: any) {
     evt.preventDefault();
@@ -31,7 +27,7 @@ function Create() {
     setMemos((prev) => {
       return [memoEntry, ...prev];
     });
-    navigate("/");
+    navigate("/memo");
   }
   return (
     <div>

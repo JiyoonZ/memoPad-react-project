@@ -15,12 +15,12 @@ function Main() {
   const {pathname} = useLocation();
   const navigate = useNavigate();
   const [readBookMark, setReadBookMark] = useState<boolean>(
-    pathname === "/bookmark" ? true : false
+    pathname === "/memo/bookmark" ? true : false
   );
   const [memos, setMemos] = useRecoilState<IMemo[]>(memoState);
 
   function createHandler() {
-    navigate("/create");
+    navigate("/memo/create");
   }
   const onDragEnd = (info: DropResult) => {
     const {destination, draggableId} = info;
@@ -28,7 +28,7 @@ function Main() {
       const deletedMemos = memos.filter((memo) => memo.id !== draggableId);
       setMemos(deletedMemos);
     } else {
-     return;
+      return;
     }
   };
   return (
@@ -43,7 +43,7 @@ function Main() {
           <Button
             btnColor="blue"
             onClick={() => {
-              navigate("/");
+              navigate("/memo");
               setReadBookMark(false);
             }}
           >
@@ -52,7 +52,7 @@ function Main() {
           <Button
             btnColor="blue"
             onClick={() => {
-              navigate("/bookmark");
+              navigate("/memo/bookmark");
               setReadBookMark(true);
             }}
           >

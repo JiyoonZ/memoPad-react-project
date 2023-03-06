@@ -12,7 +12,7 @@ interface IMemoBox {
 function MemoBox({data, index}: IMemoBox) {
   const navigate = useNavigate();
   function goMemoHanlder() {
-    navigate(`/detail/${data.id}`);
+    navigate(`/memo/detail/${data.id}`);
   }
   return (
     <Draggable draggableId={data.id + ""} index={index}>
