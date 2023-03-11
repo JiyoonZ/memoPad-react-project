@@ -1,7 +1,7 @@
 import {useRecoilValue} from "recoil";
-import {memoSelector} from "../atoms";
-import {IMemo} from "../type";
-import MemoBox from "../components/MemoBox";
+import {memoSelector} from "../../atoms";
+import {IMemo} from "../../type";
+import MemoBox from "../../components/MemoBox";
 import styled from "styled-components";
 
 function BookMark() {

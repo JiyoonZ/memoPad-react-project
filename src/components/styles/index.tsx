@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Button = styled.button<{btnColor: string}>`
+export const Button = styled.button<{btnColor: string}>`
   height: 2rem;
   border: none;
   border-radius: 12px;
@@ -22,4 +22,13 @@ const Button = styled.button<{btnColor: string}>`
   }
 `;
 
-export default Button;
+export const Container = styled.div`
+  width: 70%;
+  height: 100%;
+  margin: 15px;
+  padding: 30px;
+  box-sizing: border-box;
+  flex-grow: 1;
+  border-radius: 20px;
+  box-shadow: 0.3rem 0.3rem 0.6rem #c8d0e7, -0.2rem -0.2rem 0.5rem #ffffff;
+`;

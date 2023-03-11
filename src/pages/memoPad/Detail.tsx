@@ -1,8 +1,9 @@
-import Container from "../components/Container";
-import Button from "../components/Button";
 import styled from "styled-components";
-import Modal from "../components/Modal";
+import {useRecoilState} from "recoil";
 import {useNavigate, useParams} from "react-router-dom";
+import {useState, useEffect} from "react";
+import * as S from "../../components/styles";
+import Modal from "../../components/Modal";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
   faArrowLeftLong,
@@ -10,10 +11,8 @@ import {
   faEllipsis,
 } from "@fortawesome/free-solid-svg-icons";
 import {faBookmark as regularBookmark} from "@fortawesome/free-regular-svg-icons";
-import {useState, useEffect} from "react";
-import {memoState} from "../atoms";
-import {IMemo} from "../type";
-import {useRecoilState} from "recoil";
+import {memoState} from "../../atoms";
+import {IMemo} from "../../type";
 
 function Detail() {
   let param = useParams();
@@ -63,14 +62,14 @@ function Detail() {
     setModal((prev) => !prev);
   }
   return (
-    <div>
+    <>
       {modal && <Modal modalSet={modal} closeModal={closeModal} data={data} />}
-      <Container>
+      <S.Container>
         <Flexbox>
-          <Button onClick={goBackHandler} btnColor="back">
+          <S.Button onClick={goBackHandler} btnColor="back">
             <FontAwesomeIcon icon={faArrowLeftLong} />
             &nbsp;뒤로가기
-          </Button>
+          </S.Button>
           <BookMarkBtn onClick={bookMarkClickHandler}>
             {bookMark ? (
               <FontAwesomeIcon icon={faBookmark} className="mark" />
@@ -94,8 +93,8 @@ function Detail() {
           </Content>
         </MemoContainer>
         <Date>{data?.date}</Date>
-      </Container>
-    </div>
+      </S.Container>
+    </>
   );
 }
 const BookMarkBtn = styled.div`
