@@ -15,21 +15,23 @@ function LeftNav() {
 }
 const Wrapper = styled.div`
   ${(props) => props.theme.layout.flexCenterColumn};
-  height: 85%;
-  width: max-content;
-  position: absolute;
-  margin: 4% 30%;
+  height: 500px;
+  width: 70px;
+  /* position: absolute;
+  left: 8%;
+  top: 8%; */
+  margin: 15px;
+  border-radius: 15px;
+  ${(props) => props.theme.layout.flexCenter};
+  box-shadow: 0.3rem 0.3rem 0.6rem #c8d0e7, -0.2rem -0.2rem 0.5rem #ffffff;
 `;
 export const HomeIcon = styled.div`
   align-self: flex-end;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
   font-size: 20px;
   color: rgba(0, 0, 0, 0.6);
   cursor: pointer;
-  ${(props) => props.theme.layout.flexCenter};
-  box-shadow: 0.3rem 0.3rem 0.6rem #c8d0e7, -0.2rem -0.2rem 0.5rem #ffffff;
 `;
 
 export default LeftNav;
