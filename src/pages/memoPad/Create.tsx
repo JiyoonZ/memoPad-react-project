@@ -1,10 +1,10 @@
 import {useNavigate} from "react-router-dom";
 import dayjs from "dayjs";
-import {memoState} from "../atoms";
-import {IMemo} from "../type";
+import {memoState} from "../../atoms";
+import {IMemo} from "../../type";
 import {useRecoilState} from "recoil";
-import EditMode from "../components/EditMode";
-import {EDITMODE} from "../constants";
+import EditMode from "../../components/EditMode";
+import {EDITMODE} from "../../constants";
 
 function Create() {
   const navigate = useNavigate();

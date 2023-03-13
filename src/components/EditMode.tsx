@@ -1,5 +1,4 @@
-import Container from "../components/Container";
-import Button from "../components/Button";
+import * as S from "./styles";
 import styled from "styled-components";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowLeftLong} from "@fortawesome/free-solid-svg-icons";
@@ -15,15 +14,15 @@ function EditMode({submitHandler, goBackHandler, mode, data}: IEditMode) {
   return (
     <div>
       <form onSubmit={submitHandler}>
-        <Container>
+        <S.Container>
           <Flexbox>
-            <Button btnColor="back" onClick={goBackHandler}>
+            <S.Button btnColor="back" onClick={goBackHandler}>
               <FontAwesomeIcon icon={faArrowLeftLong} />
               &nbsp; 뒤로가기
-            </Button>
-            <Button type="submit" btnColor="blue">
+            </S.Button>
+            <S.Button type="submit" btnColor="blue">
               {mode}
-            </Button>
+            </S.Button>
           </Flexbox>
 
           <TitleInput
@@ -36,7 +35,7 @@ function EditMode({submitHandler, goBackHandler, mode, data}: IEditMode) {
             name="content"
             defaultValue={data?.content.replaceAll("<br/>", "\r\n")}
           />
-        </Container>
+        </S.Container>
       </form>
     </div>
   );

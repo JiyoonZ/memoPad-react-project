@@ -1,13 +1,12 @@
-import MemoBox from "../components/MemoBox";
-import Button from "../components/Button";
-import Container from "../components/Container";
+import MemoBox from "../../components/MemoBox";
+import * as S from "../../components/styles";
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import {useState} from "react";
-import {memoState} from "../atoms";
-import {IMemo} from "../type";
+import {memoState} from "../../atoms";
+import {IMemo} from "../../type";
 import {useRecoilState} from "recoil";
-import {HomeIcon} from "../components/LeftNav";
+import {HomeIcon} from "../../components/LeftNav";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import {DragDropContext, Droppable, DropResult} from "react-beautiful-dnd";
@@ -34,14 +33,14 @@ function Main() {
   };
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Container>
+      <S.Container>
         <Title>Zeeyoon님의</Title>
         <Title>MemoPad 📚</Title>
         <FlexNav>
-          <Button onClick={createHandler} btnColor="red">
+          <S.Button onClick={createHandler} btnColor="red">
             + NEW
-          </Button>
-          <Button
+          </S.Button>
+          <S.Button
             btnColor="blue"
             onClick={() => {
               navigate("/memo");
@@ -49,8 +48,8 @@ function Main() {
             }}
           >
             모두보기
-          </Button>
-          <Button
+          </S.Button>
+          <S.Button
             btnColor="blue"
             onClick={() => {
               navigate("/memo/bookmark");
@@ -58,7 +57,7 @@ function Main() {
             }}
           >
             즐겨찾기
-          </Button>
+          </S.Button>
         </FlexNav>
         <Droppable droppableId="one">
           {(magic, info) => (
@@ -91,7 +90,7 @@ function Main() {
             </DeleteNav>
           )}
         </Droppable>
-      </Container>
+      </S.Container>
     </DragDropContext>
   );
 }

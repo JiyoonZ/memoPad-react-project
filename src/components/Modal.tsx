@@ -122,6 +122,8 @@ const ModalLayer = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
+  left: 0;
+  top: 0;
   ${({theme}) => theme.layout.flexCenterColumn}
   justify-content: center;
   /* background: rgba(0, 0, 0, 0.5); */
