@@ -36,8 +36,13 @@ const Wrapper = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
-  margin: auto;
-  /* border: black solid 1px; */
+  margin: 20px auto;
+  @media screen and (min-width: 672px) {
+    margin: auto;
+  }
+  @media screen and (max-width: 672px) {
+    display: block;
+  }
 `;
 
 export default App;

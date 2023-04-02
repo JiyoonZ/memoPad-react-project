@@ -70,16 +70,18 @@ function Detail() {
             <FontAwesomeIcon icon={faArrowLeftLong} />
             &nbsp;뒤로가기
           </S.Button>
-          <BookMarkBtn onClick={bookMarkClickHandler}>
-            {bookMark ? (
-              <FontAwesomeIcon icon={faBookmark} className="mark" />
-            ) : (
-              <FontAwesomeIcon icon={regularBookmark} />
-            )}
-          </BookMarkBtn>
-          <SettingBtn onClick={openModal}>
-            <FontAwesomeIcon icon={faEllipsis} />
-          </SettingBtn>
+          <RightNav>
+            <BookMarkBtn onClick={bookMarkClickHandler}>
+              {bookMark ? (
+                <FontAwesomeIcon icon={faBookmark} className="mark" />
+              ) : (
+                <FontAwesomeIcon icon={regularBookmark} />
+              )}
+            </BookMarkBtn>
+            <SettingBtn onClick={openModal}>
+              <FontAwesomeIcon icon={faEllipsis} />
+            </SettingBtn>
+          </RightNav>
         </Flexbox>
         <MemoContainer>
           <Title>{data?.title}</Title>
@@ -103,7 +105,7 @@ const BookMarkBtn = styled.div`
   stroke: darkgray;
   stroke-width: 20;
   font-size: 26px;
-  margin-left: 150px;
+  margin-right: 30px;
   .mark {
     color: #edf25c;
     stroke: white;
@@ -155,6 +157,10 @@ const Flexbox = styled.div`
   ${({theme}) => theme.layout.flexbox};
   height: 40px;
   font-size: 22px;
+`;
+const RightNav = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 export default Detail;

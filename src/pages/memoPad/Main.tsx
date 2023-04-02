@@ -6,7 +6,6 @@ import {useState} from "react";
 import {memoState} from "../../atoms";
 import {IMemo} from "../../type";
 import {useRecoilState} from "recoil";
-import {HomeIcon} from "../../components/LeftNav";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import {DragDropContext, Droppable, DropResult} from "react-beautiful-dnd";
@@ -34,30 +33,31 @@ function Main() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <S.Container>
-        <Title>Zeeyoon님의</Title>
-        <Title>MemoPad 📚</Title>
+        <Title>Zeeyoon님의 MemoPad 📚</Title>
         <FlexNav>
           <S.Button onClick={createHandler} btnColor="red">
             + NEW
           </S.Button>
-          <S.Button
-            btnColor="blue"
-            onClick={() => {
-              navigate("/memo");
-              setReadBookMark(false);
-            }}
-          >
-            모두보기
-          </S.Button>
-          <S.Button
-            btnColor="blue"
-            onClick={() => {
-              navigate("/memo/bookmark");
-              setReadBookMark(true);
-            }}
-          >
-            즐겨찾기
-          </S.Button>
+          <RightNav>
+            <S.Button
+              btnColor="blue"
+              onClick={() => {
+                navigate("/memo");
+                setReadBookMark(false);
+              }}
+            >
+              모두보기
+            </S.Button>
+            <S.Button
+              btnColor="blue"
+              onClick={() => {
+                navigate("/memo/bookmark");
+                setReadBookMark(true);
+              }}
+            >
+              즐겨찾기
+            </S.Button>
+          </RightNav>
         </FlexNav>
         <Droppable droppableId="one">
           {(magic, info) => (
@@ -83,10 +83,10 @@ function Main() {
               isDraggingOver={info.isDraggingOver}
             >
               <DeleteIcon>
-                <FontAwesomeIcon icon={faTrashCan} className="home" />
+                <FontAwesomeIcon icon={faTrashCan} />
               </DeleteIcon>
               <Info>drag and drop here to delete!</Info>
-              {magic.placeholder}
+              {/* {magic.placeholder} */}
             </DeleteNav>
           )}
         </Droppable>
@@ -97,10 +97,10 @@ function Main() {
 const Info = styled.p`
   font-size: 13px;
   color: rgba(0, 0, 0, 0.6);
-  margin-top: 13px;
+  margin-left: 15px;
 `;
 
-const DeleteIcon = styled(HomeIcon)`
+const DeleteIcon = styled.div`
   color: red;
   cursor: pointer;
 `;
@@ -108,18 +108,20 @@ interface IAreaProps {
   isDraggingOver: boolean;
 }
 const DeleteNav = styled.div<IAreaProps>`
-  position: absolute;
-  bottom: 10px;
-  left: 103%;
   width: 200px;
-  height: 70px;
-  padding: 15px;
+  height: 50px;
+  padding: 5px 15px;
+  margin: 10px 0;
   border-radius: 10px;
   border: 1.5px dotted
     ${(props) =>
       props.isDraggingOver ? "transparent" : "rgb(100, 116, 123, .2)"};
   background-color: ${(props) =>
-    props.isDraggingOver ? "rgb(100, 116, 123, .2)" : "transparent"};
+    props.isDraggingOver ? "rgb(100, 116, 123, .2)" : "rgb(100, 116, 123, .1)"};
+  display: inline-flex;
+  align-items: center;
+  position: absolute;
+  right: 25px;
 `;
 
 const EmptyMemo = styled.div`
@@ -131,12 +133,14 @@ const EmptyMemo = styled.div`
   ${({theme}) => theme.layout.flexCenter};
 `;
 const FlexMemo = styled.div`
-  height: 76%;
+  height: 74%;
   width: 100%;
   overflow-y: scroll;
   display: grid;
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
   grid-template-columns: repeat(2, 1fr);
-  /* flex-wrap: wrap; */
   justify-content: flex-start;
   align-content: flex-start;
 
@@ -147,6 +151,10 @@ const FlexMemo = styled.div`
 const FlexNav = styled.div`
   ${({theme}) => theme.layout.flexbox};
   height: 30px;
+`;
+const RightNav = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 const Title = styled.div`
   font-size: 22px;
