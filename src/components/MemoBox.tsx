@@ -39,6 +39,7 @@ function MemoBox({data, index}: IMemoBox) {
     </Draggable>
   );
 }
+
 const BoxWrapper = styled.div<{isDragging: Boolean}>`
   width: 90%;
   height: 100px;
@@ -48,6 +49,10 @@ const BoxWrapper = styled.div<{isDragging: Boolean}>`
   box-sizing: border-box;
   box-shadow: 0.3rem 0.3rem 0.6rem #c8d0e7;
   position: relative;
+  font-size: 20px;
+  @media screen and (min-width: 1024px) {
+    font-size: 25px;
+  }
   .mark {
     position: absolute;
     top: -5px;

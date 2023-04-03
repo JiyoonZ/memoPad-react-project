@@ -12,36 +12,39 @@ interface IEditMode {
 }
 function EditMode({submitHandler, goBackHandler, mode, data}: IEditMode) {
   return (
-    <div>
-      <form onSubmit={submitHandler}>
-        <S.Container>
-          <Flexbox>
-            <S.Button btnColor="back" onClick={goBackHandler}>
-              <FontAwesomeIcon icon={faArrowLeftLong} />
-              &nbsp; 뒤로가기
-            </S.Button>
-            <S.Button type="submit" btnColor="blue">
-              {mode}
-            </S.Button>
-          </Flexbox>
+    // <div>
+    <S.Container>
+      <Form onSubmit={submitHandler}>
+        <Flexbox>
+          <S.Button btnColor="back" onClick={goBackHandler}>
+            <FontAwesomeIcon icon={faArrowLeftLong} />
+            &nbsp; 뒤로가기
+          </S.Button>
+          <S.Button type="submit" btnColor="blue">
+            {mode}
+          </S.Button>
+        </Flexbox>
 
-          <TitleInput
-            placeholder="제목을 입력해주세요."
-            name="title"
-            defaultValue={data?.title}
-          />
-          <ContentInput
-            placeholder="내용을 입력해주세요."
-            name="content"
-            defaultValue={data?.content.replaceAll("<br/>", "\r\n")}
-          />
-        </S.Container>
-      </form>
-    </div>
+        <TitleInput
+          placeholder="제목을 입력해주세요."
+          name="title"
+          defaultValue={data?.title}
+        />
+        <ContentInput
+          placeholder="내용을 입력해주세요."
+          name="content"
+          defaultValue={data?.content.replaceAll("<br/>", "\r\n")}
+        />
+      </Form>
+    </S.Container>
+    // </div>
   );
 }
 const Flexbox = styled.div`
   ${({theme}) => theme.layout.flexbox}
+`;
+const Form = styled.form`
+  height: 100%;
 `;
 const TitleInput = styled.input`
   width: 100%;
