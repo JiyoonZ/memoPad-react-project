@@ -33,7 +33,7 @@ function Main() {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <S.Container>
-        <Title>Zeeyoon님의 MemoPad 📚</Title>
+        <S.Title>Zeeyoon님의 MemoPad 📚</S.Title>
         <FlexNav>
           <S.Button onClick={createHandler} btnColor="red">
             + NEW
@@ -122,6 +122,7 @@ const DeleteNav = styled.div<IAreaProps>`
   align-items: center;
   position: absolute;
   right: 25px;
+  bottom: 10px;
 `;
 
 const EmptyMemo = styled.div`
@@ -133,7 +134,7 @@ const EmptyMemo = styled.div`
   ${({theme}) => theme.layout.flexCenter};
 `;
 const FlexMemo = styled.div`
-  height: 74%;
+  height: 70%;
   width: 100%;
   overflow-y: scroll;
   display: grid;
@@ -156,9 +157,5 @@ const RightNav = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-const Title = styled.div`
-  font-size: 22px;
-  font-weight: 600;
-  line-height: 1.5em;
-`;
+
 export default Main;

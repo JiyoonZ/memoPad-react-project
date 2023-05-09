@@ -8,6 +8,10 @@ const colors = {
 };
 
 const layout = {
+  flex: `
+  display: flex;
+  align-items: center;
+  `,
   flexbox: `
     margin: 20px 0;
     display: flex;
