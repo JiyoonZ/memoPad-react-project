@@ -8,6 +8,7 @@ import BookMark from "./pages/memoPad/BookMark";
 import LeftNav from "./components/LeftNav";
 import Home from "./pages/Home";
 import styled from "styled-components";
+import Board from "./pages/board/Board";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/memo" element={<Main />}>
             <Route path="bookmark" element={<BookMark />} />
           </Route>
+          <Route path="/board" element={<Board />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </Wrapper>
